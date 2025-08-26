@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Caixa da Equipe - BAJA QUERO-QUERO</title>
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            min-height: 100vh;
+
+            padding: 20px;
+
+        }
+
+
+
+        .container {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            background: white;
+
+            border-radius: 15px;
+
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+
+            overflow: hidden;
+
+        }
+
+
+
+        .header {
+
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+
+            color: white;
+
+            padding: 30px;
+
+            text-align: center;
+
+        }
+
+
+
+        .header h1 {
+
+            font-size: 2.5em;
+
+            margin-bottom: 10px;
+
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+
+        }
+
+
+
+        .header p {
+
+            font-size: 1.2em;
+
+            opacity: 0.9;
+
+        }
+
+
+
+        .main-content {
+
+            display: grid;
+
+            grid-template-columns: 1fr 350px;
+
+            gap: 30px;
+
+            padding: 30px;
+
+        }
+
+
+
+        .calendar-section {
+
+            background: #f8f9fa;
+
+            border-radius: 10px;
+
+            padding: 25px;
+
+        }
+
+
+
+        .calendar-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+
+        .month-nav {
+
+            background: #007bff;
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 15px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .month-nav:hover {
+
+            background: #0056b3;
+
+            transform: translateY(-2px);
+
+        }
+
+
+
+        .current-month {
+
+            font-size: 1.5em;
+
+            font-weight: bold;
+
+            padding: 10px 20px;
+
+            border-radius: 8px;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .current-month.deficit {
+
+            background: #dc3545;
+
+            color: white;
+
+        }
+
+
+
+        .current-month.surplus {
+
+            background: #28a745;
+
+            color: white;
+
+        }
+
+
+
+        .current-month.neutral {
+
+            background: #6c757d;
+
+            color: white;
+
+        }
+
+
+
+        .balance-display {
+
+            text-align: center;
+
+            margin: 20px 0;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            font-size: 1.3em;
+
+            font-weight: bold;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .balance-display.positive {
+
+            background: #d4edda;
+
+            color: #155724;
+
+            border: 2px solid #28a745;
+
+        }
+
+
+
+        .balance-display.negative {
+
+            background: #f8d7da;
+
+            color: #721c24;
+
+            border: 2px solid #dc3545;
+
+        }
+
+
+
+        .balance-display.zero {
+
+            background: #e2e3e5;
+
+            color: #383d41;
+
+            border: 2px solid #6c757d;
+
+        }
+
+
+
+        .mini-summary {
+
+            display: flex;
+
+            justify-content: space-around;
+
+            margin: 20px 0;
+
+            padding: 15px;
+
+            background: white;
+
+            border-radius: 10px;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+        }
+
+
+
+        .mini-item {
+
+            text-align: center;
+
+            padding: 10px;
+
+        }
+
+
+
+        .mini-item .symbol {
+
+            font-size: 2em;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+        }
+
+
+
+        .mini-item .amount {
+
+            font-size: 1.1em;
+
+            font-weight: bold;
+
+        }
+
+
+
+        .mini-item.income .symbol {
+
+            color: #28a745;
+
+        }
+
+
+
+        .mini-item.expense .symbol {
+
+            color: #dc3545;
+
+        }
+
+
+
+        .forms-section {
+
+            background: #f8f9fa;
+
+            border-radius: 10px;
+
+            padding: 25px;
+
+        }
+
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+
+            color: #333;
+
+        }
+
+
+
+        .form-group input, .form-group select, .form-group textarea {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 2px solid #ddd;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            transition: border-color 0.3s ease;
+
+        }
+
+
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+
+            outline: none;
+
+            border-color: #007bff;
+
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
+
+        }
+
+
+
+        .btn {
+
+            background: #007bff;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 25px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            width: 100%;
+
+            margin-top: 10px;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .btn:hover {
+
+            background: #0056b3;
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+
+        }
+
+
+
+        .btn.income {
+
+            background: #28a745;
+
+        }
+
+
+
+        .btn.income:hover {
+
+            background: #1e7e34;
+
+        }
+
+
+
+        .btn.expense {
+
+            background: #dc3545;
+
+        }
+
+
+
+        .btn.expense:hover {
+
+            background: #c82333;
+
+        }
+
+
+
+        .transactions-list {
+
+            margin-top: 25px;
+
+            max-height: 400px;
+
+            overflow-y: auto;
+
+        }
+
+
+
+        .transaction-item {
+
+            background: white;
+
+            padding: 15px;
+
+            margin-bottom: 10px;
+
+            border-radius: 8px;
+
+            border-left: 4px solid;
+
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+            animation: slideIn 0.3s ease;
+
+        }
+
+
+
+        .transaction-item.income {
+
+            border-left-color: #28a745;
+
+        }
+
+
+
+        .transaction-item.expense {
+
+            border-left-color: #dc3545;
+
+        }
+
+
+
+        .transaction-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 8px;
+
+        }
+
+
+
+        .transaction-name {
+
+            font-weight: bold;
+
+            font-size: 1.1em;
+
+        }
+
+
+
+        .transaction-amount {
+
+            font-weight: bold;
+
+            font-size: 1.2em;
+
+        }
+
+
+
+        .transaction-amount.positive {
+
+            color: #28a745;
+
+        }
+
+
+
+        .transaction-amount.negative {
+
+            color: #dc3545;
+
+        }
+
+
+
+        .transaction-description {
+
+            color: #666;
+
+            font-size: 0.9em;
+
+            margin-bottom: 5px;
+
+        }
+
+
+
+        .transaction-date {
+
+            color: #999;
+
+            font-size: 0.8em;
+
+        }
+
+
+
+        .delete-btn {
+
+            background: #dc3545;
+
+            color: white;
+
+            border: none;
+
+            padding: 5px 10px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            margin-left: 10px;
+
+        }
+
+
+
+        .delete-btn:hover {
+
+            background: #c82333;
+
+        }
+
+
+
+        @keyframes slideIn {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(-10px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+
+
+        .stats-summary {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+
+        .stat-card {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+        }
+
+
+
+        .stat-card h3 {
+
+            color: #666;
+
+            margin-bottom: 10px;
+
+            font-size: 1em;
+
+        }
+
+
+
+        .stat-card .value {
+
+            font-size: 1.5em;
+
+            font-weight: bold;
+
+        }
+
+
+
+        .stat-card.income .value {
+
+            color: #28a745;
+
+        }
+
+
+
+        .stat-card.expense .value {
+
+            color: #dc3545;
+
+        }
+
+
+
+        @media (max-width: 768px) {
+
+            .main-content {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            
+
+            .calendar-header {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <h1>🏎️ BAJA QUERO-QUERO</h1>
+
+            <p>Sistema de Controle Financeiro da Equipe</p>
+
+        </div>
+
+
+
+        <div class="main-content">
+
+            <div class="calendar-section">
+
+                <div class="calendar-header">
+
+                    <button class="month-nav" onclick="changeMonth(-1)">◀ Anterior</button>
+
+                    <div class="current-month neutral" id="currentMonth">Janeiro 2025</div>
+
+                    <button class="month-nav" onclick="changeMonth(1)">Próximo ▶</button>
+
+                </div>
+
+
+
+                <div class="balance-display zero" id="balanceDisplay">
+
+                    Saldo: R$ 0,00
+
+                </div>
+
+
+
+                <div class="mini-summary">
+
+                    <div class="mini-item income">
+
+                        <div class="symbol">+</div>
+
+                        <div class="amount" id="totalIncome">R$ 0,00</div>
+
+                        <div>Entradas</div>
+
+                    </div>
+
+                    <div class="mini-item expense">
+
+                        <div class="symbol">-</div>
+
+                        <div class="amount" id="totalExpense">R$ 0,00</div>
+
+                        <div>Saídas</div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stats-summary">
+
+                    <div class="stat-card income">
+
+                        <h3>Total de Entradas</h3>
+
+                        <div class="value" id="monthlyIncome">R$ 0,00</div>
+
+                    </div>
+
+                    <div class="stat-card expense">
+
+                        <h3>Total de Saídas</h3>
+
+                        <div class="value" id="monthlyExpense">R$ 0,00</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="forms-section">
+
+                <h2 style="margin-bottom: 25px; color: #333;">📝 Adicionar Transação</h2>
+
+                
+
+                <form id="transactionForm">
+
+                    <div class="form-group">
+
+                        <label for="transactionType">Tipo de Transação:</label>
+
+                        <select id="transactionType" required>
+
+                            <option value="">Selecione o tipo</option>
+
+                            <option value="income">💰 Entrada (+)</option>
+
+                            <option value="expense">💸 Saída (-)</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="transactionName">Nome da Transação:</label>
+
+                        <input type="text" id="transactionName" placeholder="Ex: Patrocínio, Peças, Combustível..." required>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="transactionAmount">Valor (R$):</label>
+
+                        <input type="number" id="transactionAmount" step="0.01" min="0" placeholder="0,00" required>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="transactionDescription">Descrição:</label>
+
+                        <textarea id="transactionDescription" rows="3" placeholder="Detalhes sobre a transação..."></textarea>
+
+                    </div>
+
+
+
+                    <button type="submit" class="btn" id="submitBtn">Adicionar Transação</button>
+
+                </form>
+
+
+
+                <div class="transactions-list">
+
+                    <h3 style="margin-bottom: 15px; color: #333;">📋 Transações do Mês</h3>
+
+                    <div id="transactionsList"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        // Sistema de dados persistente usando JSONBin.io
+
+        let transactions = {};
+
+        let currentMonth = new Date().getMonth();
+
+        let currentYear = new Date().getFullYear();
+
+        let isLoading = false;
+
+
+
+        // Configuração da API para persistência com bin fixo
+
+        const API_CONFIG = {
+
+            binId: '68ada49fd0ea881f40661354',
+
+            apiKey: '$2a$10$5dbqX7g2fVH97jVvtjWVk.de3t2omZ9AP0SDnJb/2oK69Sh5WPvi.',
+
+            baseUrl: 'https://api.jsonbin.io/v3/b/'
+
+        };
+
+
+
+        const monthNames = [
+
+            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+
+            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+
+        ];
+
+
+
+        // Função para salvar dados na nuvem
+
+        async function saveToCloud() {
+
+            if (isLoading || !API_CONFIG.binId || !API_CONFIG.apiKey) return;
+
+            
+
+            // Salvar no localStorage continua sendo um bom backup offline
+
+            localStorage.setItem('bajaQueroQuero_backup', JSON.stringify({ transactions }));
+
+            
+
+            try {
+
+                const data = {
+
+                    transactions: transactions,
+
+                    lastUpdate: new Date().toISOString(),
+
+                    teamName: 'BAJA QUERO-QUERO'
+
+                };
+
+
+
+                // Usamos PUT para ATUALIZAR o bin existente, em vez de criar um novo
+
+                const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.binId}`, {
+
+                    method: 'PUT',
+
+                    headers: {
+
+                        'Content-Type': 'application/json',
+
+                        'X-Master-Key': API_CONFIG.apiKey
+
+                    },
+
+                    body: JSON.stringify(data)
+
+                });
+
+
+
+                if (response.ok) {
+
+                    console.log('✅ Dados salvos na nuvem com sucesso!');
+
+                    showNotification('✅ Dados sincronizados na nuvem!', 'success');
+
+                } else {
+
+                    throw new Error('Falha ao salvar na nuvem. Status: ' + response.status);
+
+                }
+
+            } catch (error) {
+
+                console.error('⚠️ Erro ao salvar na nuvem:', error.message);
+
+                showNotification('💾 Dados salvos localmente (falha na nuvem)', 'warning');
+
+            }
+
+        }
+
+
+
+        // Função para carregar dados da nuvem
+
+        async function loadFromCloud() {
+
+            if (isLoading || !API_CONFIG.binId || !API_CONFIG.apiKey) {
+
+                console.warn("API_CONFIG não configurada. Usando dados locais.");
+
+                const localData = localStorage.getItem('bajaQueroQuero_backup');
+
+                if (localData) {
+
+                    transactions = JSON.parse(localData).transactions || {};
+
+                }
+
+                updateDisplay();
+
+                return;
+
+            }
+
+            
+
+            isLoading = true;
+
+            
+
+            try {
+
+                // Usamos GET para LER o bin existente
+
+                const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.binId}/latest`, {
+
+                    method: 'GET',
+
+                    headers: {
+
+                        'X-Master-Key': API_CONFIG.apiKey
+
+                    }
+
+                });
+
+
+
+                if (response.ok) {
+
+                    const cloudData = await response.json();
+
+                    if (cloudData.transactions) {
+
+                        transactions = cloudData.transactions;
+
+                        localStorage.setItem('bajaQueroQuero_backup', JSON.stringify(cloudData)); // Atualiza o backup local
+
+                        console.log('☁️ Dados carregados da nuvem!');
+
+                        showNotification('☁️ Dados sincronizados!', 'success');
+
+                    }
+
+                } else {
+
+                    throw new Error('Bin não encontrado ou chave inválida. Status: ' + response.status);
+
+                }
+
+            } catch (error) {
+
+                console.error('⚠️ Falha ao carregar da nuvem, usando backup local:', error.message);
+
+                const localData = localStorage.getItem('bajaQueroQuero_backup');
+
+                if (localData) {
+
+                    transactions = JSON.parse(localData).transactions || {};
+
+                }
+
+                showNotification('📱 Usando dados de backup local', 'info');
+
+            } finally {
+
+                isLoading = false;
+
+                updateDisplay();
+
+            }
+
+        }
+
+
+
+        // Função para mostrar notificações
+
+        function showNotification(message, type = 'info') {
+
+            const notification = document.createElement('div');
+
+            notification.className = `notification ${type}`;
+
+            notification.textContent = message;
+
+            notification.style.cssText = `
+
+                position: fixed;
+
+                top: 20px;
+
+                right: 20px;
+
+                padding: 15px 20px;
+
+                border-radius: 8px;
+
+                color: white;
+
+                font-weight: bold;
+
+                z-index: 1000;
+
+                animation: slideInRight 0.3s ease;
+
+                max-width: 300px;
+
+            `;
+
+
+
+            switch (type) {
+
+                case 'success':
+
+                    notification.style.background = '#28a745';
+
+                    break;
+
+                case 'warning':
+
+                    notification.style.background = '#ffc107';
+
+                    notification.style.color = '#000';
+
+                    break;
+
+                case 'error':
+
+                    notification.style.background = '#dc3545';
+
+                    break;
+
+                default:
+
+                    notification.style.background = '#17a2b8';
+
+            }
+
+
+
+            document.body.appendChild(notification);
+
+
+
+            setTimeout(() => {
+
+                notification.style.animation = 'slideOutRight 0.3s ease';
+
+                setTimeout(() => {
+
+                    if (notification.parentNode) {
+
+                        notification.parentNode.removeChild(notification);
+
+                    }
+
+                }, 300);
+
+            }, 3000);
+
+        }
+
+
+
+        // Adicionar CSS para animações das notificações
+
+        const style = document.createElement('style');
+
+        style.textContent = `
+
+            @keyframes slideInRight {
+
+                from { transform: translateX(100%); opacity: 0; }
+
+                to { transform: translateX(0); opacity: 1; }
+
+            }
+
+            @keyframes slideOutRight {
+
+                from { transform: translateX(0); opacity: 1; }
+
+                to { transform: translateX(100%); opacity: 0; }
+
+            }
+
+        `;
+
+        document.head.appendChild(style);
+
+
+
+        // Inicializar o sistema
+
+        async function init() {
+
+            console.log('🚀 Inicializando sistema...');
+
+            
+
+            // Carregar dados salvos
+
+            await loadFromCloud();
+
+            
+
+            setupFormHandlers();
+
+            
+
+            console.log('✅ Sistema inicializado com sucesso!');
+
+        }
+
+
+
+        // Configurar handlers do formulário
+
+        function setupFormHandlers() {
+
+            const form = document.getElementById('transactionForm');
+
+            const typeSelect = document.getElementById('transactionType');
+
+            const submitBtn = document.getElementById('submitBtn');
+
+
+
+            typeSelect.addEventListener('change', function() {
+
+                console.log('Tipo selecionado:', this.value);
+
+                if (this.value === 'income') {
+
+                    submitBtn.className = 'btn income';
+
+                    submitBtn.textContent = '💰 Adicionar Entrada';
+
+                } else if (this.value === 'expense') {
+
+                    submitBtn.className = 'btn expense';
+
+                    submitBtn.textContent = '💸 Adicionar Saída';
+
+                } else {
+
+                    submitBtn.className = 'btn';
+
+                    submitBtn.textContent = 'Adicionar Transação';
+
+                }
+
+            });
+
+
+
+            form.addEventListener('submit', function(e) {
+
+                e.preventDefault();
+
+                console.log('Formulário submetido');
+
+                addTransaction();
+
+            });
+
+
+
+            // Adicionar listener para o botão também (caso o evento submit não funcione)
+
+            submitBtn.addEventListener('click', function(e) {
+
+                e.preventDefault();
+
+                console.log('Botão clicado diretamente');
+
+                addTransaction();
+
+            });
+
+
+
+            // Debug: mostrar dados atuais
+
+            console.log('Handlers configurados. Dados atuais:', transactions);
+
+        }
+
+
+
+        // Adicionar transação
+
+        async function addTransaction() {
+
+            const type = document.getElementById('transactionType').value;
+
+            const name = document.getElementById('transactionName').value.trim();
+
+            const amountInput = document.getElementById('transactionAmount').value;
+
+            const description = document.getElementById('transactionDescription').value.trim();
+
+
+
+            console.log('Dados do formulário:', { type, name, amountInput, description });
+
+
+
+            // Validações mais específicas
+
+            if (!type) {
+
+                alert('Por favor, selecione o tipo de transação!');
+
+                return;
+
+            }
+
+
+
+            if (!name) {
+
+                alert('Por favor, informe o nome da transação!');
+
+                return;
+
+            }
+
+
+
+            if (!amountInput || amountInput === '' || parseFloat(amountInput) <= 0) {
+
+                alert('Por favor, informe um valor válido maior que zero!');
+
+                return;
+
+            }
+
+
+
+            const amount = parseFloat(amountInput);
+
+
+
+            if (isNaN(amount)) {
+
+                alert('Valor inválido! Use apenas números.');
+
+                return;
+
+            }
+
+
+
+            const monthKey = `${currentYear}-${currentMonth}`;
+
+            
+
+            if (!transactions[monthKey]) {
+
+                transactions[monthKey] = [];
+
+            }
+
+
+
+            const transaction = {
+
+                id: Date.now(),
+
+                type: type,
+
+                name: name,
+
+                amount: amount,
+
+                description: description || '',
+
+                date: new Date().toLocaleDateString('pt-BR'),
+
+                timestamp: new Date().toISOString()
+
+            };
+
+
+
+            transactions[monthKey].push(transaction);
+
+
+
+            console.log('Transação adicionada:', transaction);
+
+            console.log('Total de transações no mês:', transactions[monthKey].length);
+
+
+
+            // Feedback visual
+
+            const submitBtn = document.getElementById('submitBtn');
+
+            const originalText = submitBtn.textContent;
+
+            submitBtn.textContent = '💾 Salvando...';
+
+            submitBtn.disabled = true;
+
+            submitBtn.style.background = '#ffc107';
+
+
+
+            // Salvar na nuvem
+
+            await saveToCloud();
+
+
+
+            setTimeout(() => {
+
+                submitBtn.textContent = '✅ Salvo!';
+
+                submitBtn.style.background = '#28a745';
+
+                
+
+                setTimeout(() => {
+
+                    submitBtn.textContent = originalText;
+
+                    submitBtn.style.background = '';
+
+                    submitBtn.disabled = false;
+
+                }, 1000);
+
+            }, 500);
+
+
+
+            // Limpar formulário
+
+            document.getElementById('transactionForm').reset();
+
+            document.getElementById('submitBtn').className = 'btn';
+
+            document.getElementById('submitBtn').textContent = 'Adicionar Transação';
+
+
+
+            // Atualizar display
+
+            updateDisplay();
+
+        }
+
+
+
+        // Remover transação
+
+        async function removeTransaction(id) {
+
+            const monthKey = `${currentYear}-${currentMonth}`;
+
+            if (transactions[monthKey]) {
+
+                transactions[monthKey] = transactions[monthKey].filter(t => t.id !== id);
+
+                
+
+                // Salvar automaticamente após remoção
+
+                showNotification('🗑️ Transação removida', 'info');
+
+                await saveToCloud();
+
+                
+
+                updateDisplay();
+
+            }
+
+        }
+
+
+
+        // Mudar mês
+
+        function changeMonth(direction) {
+
+            currentMonth += direction;
+
+            
+
+            if (currentMonth > 11) {
+
+                currentMonth = 0;
+
+                currentYear++;
+
+            } else if (currentMonth < 0) {
+
+                currentMonth = 11;
+
+                currentYear--;
+
+            }
+
+            
+
+            updateDisplay();
+
+        }
+
+
+
+        // Atualizar todo o display
+
+        function updateDisplay() {
+
+            updateMonthDisplay();
+
+            updateBalanceDisplay();
+
+            updateTransactionsList();
+
+        }
+
+
+
+        // Atualizar display do mês
+
+        function updateMonthDisplay() {
+
+            const monthElement = document.getElementById('currentMonth');
+
+            monthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+            
+
+            const balance = calculateBalance();
+
+            
+
+            monthElement.className = 'current-month ';
+
+            if (balance > 0) {
+
+                monthElement.className += 'surplus';
+
+            } else if (balance < 0) {
+
+                monthElement.className += 'deficit';
+
+            } else {
+
+                monthElement.className += 'neutral';
+
+            }
+
+        }
+
+
+
+        // Calcular saldo do mês atual
+
+        function calculateBalance() {
+
+            const monthKey = `${currentYear}-${currentMonth}`;
+
+            const monthTransactions = transactions[monthKey] || [];
+
+            
+
+            let income = 0;
+
+            let expense = 0;
+
+            
+
+            monthTransactions.forEach(transaction => {
+
+                if (transaction.type === 'income') {
+
+                    income += transaction.amount;
+
+                } else {
+
+                    expense += transaction.amount;
+
+                }
+
+            });
+
+            
+
+            return income - expense;
+
+        }
+
+
+
+        // Atualizar display do saldo
+
+        function updateBalanceDisplay() {
+
+            const balance = calculateBalance();
+
+            const balanceElement = document.getElementById('balanceDisplay');
+
+            const totalIncomeElement = document.getElementById('totalIncome');
+
+            const totalExpenseElement = document.getElementById('totalExpense');
+
+            const monthlyIncomeElement = document.getElementById('monthlyIncome');
+
+            const monthlyExpenseElement = document.getElementById('monthlyExpense');
+
+            
+
+            const monthKey = `${currentYear}-${currentMonth}`;
+
+            const monthTransactions = transactions[monthKey] || [];
+
+            
+
+            let income = 0;
+
+            let expense = 0;
+
+            
+
+            monthTransactions.forEach(transaction => {
+
+                if (transaction.type === 'income') {
+
+                    income += transaction.amount;
+
+                } else {
+
+                    expense += transaction.amount;
+
+                }
+
+            });
+
+
+
+            balanceElement.textContent = `Saldo: ${formatCurrency(balance)}`;
+
+            totalIncomeElement.textContent = formatCurrency(income);
+
+            totalExpenseElement.textContent = formatCurrency(expense);
+
+            monthlyIncomeElement.textContent = formatCurrency(income);
+
+            monthlyExpenseElement.textContent = formatCurrency(expense);
+
+            
+
+            balanceElement.className = 'balance-display ';
+
+            if (balance > 0) {
+
+                balanceElement.className += 'positive';
+
+            } else if (balance < 0) {
+
+                balanceElement.className += 'negative';
+
+            } else {
+
+                balanceElement.className += 'zero';
+
+            }
+
+        }
+
+
+
+        // Atualizar lista de transações
+
+        function updateTransactionsList() {
+
+            const monthKey = `${currentYear}-${currentMonth}`;
+
+            const monthTransactions = transactions[monthKey] || [];
+
+            const listElement = document.getElementById('transactionsList');
+
+            
+
+            console.log(`Atualizando lista para ${monthNames[currentMonth]} ${currentYear}`);
+
+            console.log('Transações encontradas:', monthTransactions.length);
+
+            
+
+            if (monthTransactions.length === 0) {
+
+                listElement.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Nenhuma transação registrada este mês.</p>';
+
+                return;
+
+            }
+
+            
+
+            // Ordenar por data (mais recente primeiro)
+
+            const sortedTransactions = [...monthTransactions].sort((a, b) => b.id - a.id);
+
+            
+
+            listElement.innerHTML = sortedTransactions.map(transaction => `
+
+                <div class="transaction-item ${transaction.type}">
+
+                    <div class="transaction-header">
+
+                        <span class="transaction-name">${transaction.name}</span>
+
+                        <span class="transaction-amount ${transaction.type === 'income' ? 'positive' : 'negative'}">
+
+                            ${transaction.type === 'income' ? '+' : '-'} ${formatCurrency(transaction.amount)}
+
+                        </span>
+
+                        <button class="delete-btn" onclick="removeTransaction(${transaction.id})" title="Excluir transação">🗑️</button>
+
+                    </div>
+
+                    ${transaction.description ? `<div class="transaction-description">${transaction.description}</div>` : ''}
+
+                    <div class="transaction-date">📅 ${transaction.date}</div>
+
+                </div>
+
+            `).join('');
+
+            
+
+            console.log('Lista atualizada com', sortedTransactions.length, 'transações');
+
+        }
+
+
+
+        // Formatar moeda brasileira
+
+        function formatCurrency(amount) {
+
+            return new Intl.NumberFormat('pt-BR', {
+
+                style: 'currency',
+
+                currency: 'BRL'
+
+            }).format(amount);
+
+        }
+
+
+
+        // Inicializar quando a página carregar
+
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+
+</body>
+
+</html>
